@@ -1,0 +1,91 @@
+<h1 [ngStyle] = "{'color' : employees ? 'red' : 'black'}">Current employees</h1>
+<hr/>
+<br/>
+
+
+<ul *ngIf="employees"> 
+
+    <li *ngFor="let employee of employees">
+      <h4>{{ employee.name }} {{ employee.surname }} {{ employee.age }} {{ employee.department }}</h4>
+      <hr/> 
+    </li>
+</ul>
+
+<br/> <br/> <br/>
+<hr/>
+
+<h1 [ngStyle] = "{'color' : employees ? 'red' : 'black'}">Add Employee</h1>
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+
+  <h3 [ngStyle] = " {'color' : 'red'}" *ngIf="submitted">Request Sent</h3>
+  <h3 [ngStyle] = " {'color' : 'green'}" *ngIf="success">Person has been added successfully</h3>
+  <br/>
+
+  <label>
+      Name:
+      <input type="text" formControlName="name">
+      <div *ngIf="submitted && addForm.controls.name.errors" class="error">
+        <div *ngIf="addForm.controls.name.errors.required">A name is required</div>
+      </div>
+    </label>
+
+    <label>
+        Surname:
+        <input type="text" formControlName="surname">
+        <div *ngIf="submitted && addForm.controls.surname.errors" class="error">
+          <div *ngIf="addForm.controls.surname.errors.required">A surname is required</div>
+        </div>
+      </label>
+
+      <label>
+          Age:
+          <input type="text" formControlName="age">
+          <div *ngIf="submitted && addForm.controls.age.errors " class="error"> <!--|| !angular.isNumber(+addForm.controls.age.value)-->
+            <div *ngIf="addForm.controls.age.errors.required">An age is required and needs to be a number</div>
+          </div>
+        </label>
+  <input type="submit" value="Send message" class="cta">
+
+</form>
+
+
+<br/> <br/>
+<hr/>
+
+<h1 [ngStyle] = "{'color' : employees ? 'red' : 'black'}">Get specific Employee</h1>
+<form [formGroup]="getForm" (ngSubmit)="get()">
+
+  <h3 [ngStyle] = " {'color' : 'red'}" *ngIf="submitted">Request Sent</h3>
+  <h3 [ngStyle] = " {'color' : 'green'}" *ngIf="success">Here are the details</h3>
+  <br/>
+
+  <label>
+      Name:
+      <input type="text" formControlName="name">
+      <div *ngIf="submitted && getForm.controls.name.errors" class="error">
+        <div *ngIf="getForm.controls.name.errors.required">A name is required</div>
+      </div>
+    </label>
+
+    <label>
+        Surname:
+        <input type="text" formControlName="surname">
+        <div *ngIf="submitted && getForm.controls.surname.errors" class="error">
+          <div *ngIf="getForm.controls.surname.errors.required">A surname is required</div>
+        </div>
+      </label>
+
+  <input type="submit" value="Send message" class="cta">
+
+</form>
+
+<div *ngIf="getSuccess" class="results">
+    <strong>Name:</strong> 
+    <span>{{ getUser.name }}</span>
+
+    <strong>Surname:</strong> 
+    <span>{{ getUser.surname }}</span>
+
+    <strong>Age:</strong> 
+    <span>{{ getUser.age }}</span>
+  </div>
